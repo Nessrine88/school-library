@@ -1,4 +1,3 @@
-$ ruby person.rb
 class Person
   attr_accessor :name, :age
   attr_reader :id
@@ -20,7 +19,3 @@ class Person
     @age >= 18
   end
 end
-
-person1 = Person.new(1)
-person1.name = "Nessrine"
-puts person1.name
