@@ -1,12 +1,6 @@
 require_relative 'nameable'
 require_relative 'decorator'
 
-class Nameable
-  def correct_name
-    raise NotImplementedError, 'Subclasses must implement this method'
-  end
-end
-
 class Person < Nameable
   attr_accessor :name, :age
   attr_reader :id, :parent_permission
