@@ -13,12 +13,12 @@ end
 
 class CapitalizeDecorator < Decorator
   def correct_name
-    super.capitalize
+    @nameable.correct_name.capitalize
   end
 end
 
 class TrimmerDecorator < Decorator
   def correct_name
-    super[0, 10]
+    @nameable.correct_name[0, 10]
   end
 end
