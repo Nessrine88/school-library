@@ -37,7 +37,6 @@
 - [🤝 Contributing](#contributing)
 - [⭐️ Show your support](#support)
 - [🙏 Acknowledgements](#acknowledgements)
-- [❓ FAQ](#faq)
 - [📝 License](#license)
 
 <br/>
@@ -151,7 +150,7 @@ Expand the user review and rating system to include comments and discussions abo
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/kazim110/SpaceTraveler/issues).
+Feel free to check the [issues page](https://github.com/Nessrine88/school-library/issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
