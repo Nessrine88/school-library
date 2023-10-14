@@ -1,10 +1,12 @@
 require_relative 'person'
 require_relative 'book'
 require_relative 'rental'
+require_relative 'teacher'
 
 @books = []
 @rentals = []
-@people = []
+@students = []
+@teachers = []
 
 def all_books
   puts 'List of books:'
@@ -15,8 +17,12 @@ end
 
 def all_people
   puts 'List of people:'
-  @people.each_with_index do |person, index|
-    puts "#{index + 1}. Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+  @students.each_with_index do |student, index|
+    puts "#{index + 1}. Student: Name: #{student.name}, ID: #{student.id}, Age: #{student.age}"
+  end
+
+  @teachers.each_with_index do |teacher, index|
+    puts "#{index + 1 + @students.length}. Teacher: Name: #{teacher.name}, ID: #{teacher.id}, Age: #{teacher.age}"
   end
 end
 
@@ -29,8 +35,8 @@ def create_student
   parent_permission = gets.chomp.downcase == 'y'
 
   new_student = Person.new(age, name, parent_permission: parent_permission)
-  @people << new_student
-  print 'Student created successfully.'
+  @students << new_student
+  puts 'Student created successfully.'
 end
 
 def create_teacher
@@ -38,10 +44,12 @@ def create_teacher
   name = gets.chomp
   print 'Age: '
   age = gets.chomp.to_i
+  print 'Specialization: '
+  specialization = gets.chomp
 
-  new_teacher = Person.new(age, name)
-  @people << new_teacher
-  print 'Teacher created successfully.'
+  new_teacher = Teacher.new(age, name, specialization)
+  @teachers << new_teacher
+  puts 'Teacher created successfully.'
 end
 
 def create_a_person
@@ -57,9 +65,9 @@ def create_a_person
 end
 
 def create_a_book
-  print 'Title:'
+  print 'Title: '
   title = gets.chomp
-  print 'Author:'
+  print 'Author: '
   author = gets.chomp
 
   new_book = Book.new(title, author)
@@ -68,7 +76,7 @@ def create_a_book
 end
 
 def create_a_rental
-  if @books.empty? || @people.empty?
+  if @books.empty? || (@students.empty? && @teachers.empty?)
     puts 'No books or people available. Create books and people first.'
   else
     puts 'Select a book from the following list by number:'
@@ -79,17 +87,22 @@ def create_a_rental
     all_people
     person = gets.chomp.to_i - 1
 
-    print 'Enter rental date (e.g., YYYY-MM-DD):'
+    print 'Enter rental date (e.g., YYYY-MM-DD): '
     date = gets.chomp
 
-    new_rental = Rental.new(date, @people[person], @books[book])
+    new_rental = if person < @students.length
+                   Rental.new(date, @students[person], @books[book])
+                 else
+                   Rental.new(date, @teachers[person - @students.length], @books[book])
+                 end
+
     @rentals << new_rental
     puts 'Rental created successfully.'
   end
 end
 
 def all_rentals
-  print 'ID of person:'
+  print 'ID of person: '
   person_id = gets.chomp.to_i
 
   found_rentals = @rentals.select { |rental| rental.person.id == person_id }
